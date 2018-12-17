@@ -1,0 +1,1 @@
+Testing the Flask micro-framework by developing simple blog
