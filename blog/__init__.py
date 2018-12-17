@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from . import db
+from . import db, auth
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
@@ -19,10 +19,12 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route('/hello')
-    def hello():
+    @app.route('/index')
+    def index():
         return 'Hello World'
 
     db.init_app(app)
+
+    app.register_blueprint(auth.bp)
 
     return app
