@@ -15,7 +15,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db
+        db = get_db()
         error = None
 
         if not username:
@@ -50,12 +50,12 @@ def login():
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
 
-        if user in None:
+        if user is None:
             error = 'Incorect username.'
         elif not check_password_hash(user['password'], password):
             error = 'Incorect password.'
 
-        if error in None:
+        if error is None:
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))

@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from . import db, auth
 
 def create_app(test_config=None):
@@ -19,9 +19,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    @app.route('/')
     @app.route('/index')
     def index():
-        return 'Hello World'
+        return render_template('base.html')
 
     db.init_app(app)
 
