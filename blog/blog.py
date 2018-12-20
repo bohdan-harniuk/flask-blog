@@ -83,14 +83,15 @@ def get_post(id, check_author=True):
     if post is None:
         abort(404, "Post id {0} doesn't exist.".format(id))
 
-    print("AAA: {0}".format(g.user['id']))
+    for k, v in post.items():
+	    print('{0} : {1}'.format(k,v))
     
     if check_author and post['author_id'] != g.user['id']:
         abort(403)
     
     return post
 
-@bp.route('/<int:id>/delete')
+@bp.route('/<int:id>/delete', methods=('GET', 'POST'))
 @login_required
 def delete(id):
     get_post(id)
